@@ -8,8 +8,7 @@ export const Route = createFileRoute('/')({
 function Home() {
     return (
         <>
-            <h1>Hello World</h1>
-            <Button>Click me</Button>
+            <h1>WTDT</h1>
         </>
     )
 }
