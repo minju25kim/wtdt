@@ -19,6 +19,30 @@ export const Route = createRootRoute({
                 title: 'WTDT',
                 description: 'What to do today?',
             },
+            {
+                property: 'og:title',
+                content: 'WTDT',
+            },
+            {
+                property: 'og:description',
+                content: 'What to do today?',
+            },
+            {
+                property: 'og:type',
+                content: 'website',
+            },
+            {
+                name: 'twitter:card',
+                content: 'summary',
+            },
+            {
+                name: 'twitter:title',
+                content: 'WTDT',
+            },
+            {
+                name: 'twitter:description',
+                content: 'What to do today?',
+            },
         ],
         links: [
             {
