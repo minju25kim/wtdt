@@ -86,7 +86,19 @@ export const Route = createRootRoute({
 function RootComponent() {
     return (
         <RootDocument>
-            <Outlet />
+            <div className='max-w-3xl mx-auto h-[100dvh] grid grid-rows-[1fr_auto] justify-center'>
+                <Outlet />
+                <footer className="text-xs text-foreground/50 flex justify-center flex-row gap-2 pb-1">
+                    <span>
+                        &copy; {new Date().getFullYear()} WTDT
+                    </span>
+                    <span>
+                        <a href="mailto:hello.wtdt@gmail.com">
+                            hello.wtdt@gmail.com
+                        </a>
+                    </span>
+                </footer>
+            </div>
         </RootDocument>
     )
 }
