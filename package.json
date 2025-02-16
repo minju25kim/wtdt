@@ -8,6 +8,7 @@
     "start": "vinxi start"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.7.8",
     "@types/bun": "latest",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
@@ -26,8 +27,8 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
     "postcss": "^8.5.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.0.0-rc.1",
+    "react-dom": "^19.0.0-rc.1",
     "tailwind-merge": "^3.0.1",
     "tailwindcss": "^4.0.5",
     "tailwindcss-animate": "^1.0.7",
