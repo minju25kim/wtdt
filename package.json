@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vinxi dev",
-    "build": "vinxi build",
-    "start": "vinxi start"
+    "build": "bun --bun run vinxi build",
+    "start": "bun --bun run vinxi start"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.7.8",
