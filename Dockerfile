@@ -36,11 +36,6 @@ RUN --mount=type=secret,id=SUPABASE_URL \
     SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" \
     bun run build
 
-# Copy public assets to output directory
-RUN mkdir -p .output/public && \
-    cp -r public/* .output/public/ 2>/dev/null || true && \
-    cp -r .vinxi/build/client/_build/* .output/public/
-
 # Remove development dependencies and reinstall production deps
 RUN rm -rf node_modules && \
     bun install --frozen-lockfile
@@ -48,14 +43,9 @@ RUN rm -rf node_modules && \
 # Final stage for app image
 FROM base
 
-# Copy built application
-COPY --from=build /app/.output /app/.output
-COPY --from=build /app/package.json /app/package.json
-COPY --from=build /app/bun.lock /app/bun.lock
-
 # Install only production dependencies
-RUN bun install --production --frozen-lockfile
+RUN bun install
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["bun", "--bun", "run", ".output/server/index.mjs"]
+CMD ["bun","run", "start"]
