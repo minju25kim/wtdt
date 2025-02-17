@@ -1,7 +1,7 @@
 // app/routes/__root.tsx
 import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { Meta, Scripts } from '@tanstack/start'
 import type { ReactNode } from 'react'
+import { Meta, Scripts } from '@tanstack/start'
 
 import appCss from "@/styles/app.css?url"
 
