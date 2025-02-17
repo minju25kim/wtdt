@@ -7,4 +7,3 @@ export function Twitter() {
         </div>
     )
 }
-
