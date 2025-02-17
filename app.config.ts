@@ -9,7 +9,7 @@ export default defineConfig({
             }),
         ],
     },
-    server: {
-        preset: 'bun',
-    },
+    // server: {
+    //     preset: 'bun',
+    // },
 })
