@@ -20,9 +20,12 @@ FROM base AS build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential pkg-config python-is-python3
 
+# Set build-time environment variable
+ENV NODE_ENV=production
+
 # Install node modules
 COPY bun.lock package.json ./
-RUN bun install
+RUN bun install --frozen-lockfile
 
 # Copy application code
 COPY . .
@@ -31,9 +34,8 @@ COPY . .
 RUN --mount=type=secret,id=SUPABASE_URL \
     --mount=type=secret,id=SUPABASE_ANON_KEY \
     SUPABASE_URL="$(cat /run/secrets/SUPABASE_URL)" \
-    SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" 
-
-RUN bun run build
+    SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" \
+    bun run build
 
 # Remove development dependencies
 RUN rm -rf node_modules && \
