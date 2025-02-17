@@ -31,13 +31,13 @@ COPY . .
 RUN --mount=type=secret,id=SUPABASE_URL \
     --mount=type=secret,id=SUPABASE_ANON_KEY \
     SUPABASE_URL="$(cat /run/secrets/SUPABASE_URL)" \
-    SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" \
-    bun --bun run build
+    SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" 
+
+RUN bun run build
 
 # Remove development dependencies
 RUN rm -rf node_modules && \
     bun install --ci
-
 
 # Final stage for app image
 FROM base
