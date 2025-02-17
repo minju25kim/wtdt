@@ -1,6 +1,5 @@
 // app/routes/__root.tsx
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { Meta, Scripts } from '@tanstack/start'
+import { HeadContent, Scripts, Outlet, createRootRoute } from '@tanstack/react-router'
 import type { ReactNode } from 'react'
 
 import appCss from "@/styles/app.css?url"
@@ -86,7 +85,19 @@ export const Route = createRootRoute({
 function RootComponent() {
     return (
         <RootDocument>
-            <Outlet />
+            <div className='max-w-3xl mx-auto h-[100dvh] grid grid-rows-[1fr_auto] justify-center'>
+                <Outlet />
+                <footer className="text-xs text-foreground/50 flex justify-center flex-row gap-2 pb-1">
+                    <span>
+                        &copy; {new Date().getFullYear()} WTDT
+                    </span>
+                    <span>
+                        <a href="mailto:hello.wtdt@gmail.com">
+                            hello.wtdt@gmail.com
+                        </a>
+                    </span>
+                </footer>
+            </div>
         </RootDocument>
     )
 }
@@ -95,7 +106,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     return (
         <html>
             <head>
-                <Meta />
+                <HeadContent />
             </head>
             <body>
                 {children}
