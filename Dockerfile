@@ -25,7 +25,7 @@ ENV NODE_ENV=production
 
 # Install node modules
 COPY bun.lock package.json ./
-RUN bun install --frozen-lockfile
+RUN bun install --frozen-lockfile --platform=bun
 
 # Copy application code
 COPY . .
@@ -37,9 +37,9 @@ RUN --mount=type=secret,id=SUPABASE_URL \
     SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" \
     bun run build
 
-# Remove development dependencies
+# Remove development dependencies and reinstall production deps
 RUN rm -rf node_modules && \
-    bun install --ci
+    bun install --production --frozen-lockfile --platform=bun
 
 # Final stage for app image
 FROM base
