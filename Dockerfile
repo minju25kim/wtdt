@@ -21,14 +21,18 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential pkg-config python-is-python3
 
 # Install node modules
-COPY bun.lock package-lock.json package.json ./
+COPY bun.lock package.json ./
 RUN bun install
 
 # Copy application code
 COPY . .
 
 # Build application
-RUN bun --bun run build
+RUN --mount=type=secret,id=SUPABASE_URL \
+    --mount=type=secret,id=SUPABASE_ANON_KEY \
+    SUPABASE_URL="$(cat /run/secrets/SUPABASE_URL)" \
+    SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" \
+    bun --bun run build
 
 # Remove development dependencies
 RUN rm -rf node_modules && \
