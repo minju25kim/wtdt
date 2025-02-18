@@ -7,9 +7,8 @@ export const APIRoute = createAPIFileRoute('/api/auth/google')({
     let baseUrl = ''
 
     if (process.env.NODE_ENV === 'production') {
-      baseUrl = process.env.SITE_URL || ''
-    }
-    if (process.env.NODE_ENV === 'development') {
+      baseUrl = new URL(request.url).origin
+    } else {
       baseUrl = 'http://localhost:3000'
     }
 
