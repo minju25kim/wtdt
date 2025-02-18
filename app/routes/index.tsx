@@ -9,6 +9,10 @@ export const Route = createFileRoute('/')({
 })
 
 function Home() {
+    const handleAuth = (provider: 'github' | 'twitter' | 'google') => {
+        window.location.href = `/api/auth/${provider}`
+    }
+
     return (
         <div className="flex flex-col gap-4 justify-center items-center">
             <h1 className="text-2xl font-bold">Welcome to WTDT</h1>
@@ -17,21 +21,15 @@ function Home() {
                     <img src="/og-image.webp" alt="WTDT" width={1200} height={630} />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <Button variant="outline" onClick={() => {
-                        console.log('Github Sign in')
-                    }}>
+                    <Button variant="outline" onClick={() => handleAuth('github')}>
                         <Github />
                         Github Sign in
                     </Button>
-                    <Button variant="outline" onClick={() => {
-                        console.log('Twitter Sign in')
-                    }}>
+                    <Button variant="outline" onClick={() => handleAuth('twitter')}>
                         <Twitter />
                         Twitter Sign in
                     </Button>
-                    <Button variant="outline" onClick={() => {
-                        console.log('Google Sign in')
-                    }}>
+                    <Button variant="outline" onClick={() => handleAuth('google')}>
                         <Google />
                         Google Sign in
                     </Button>
