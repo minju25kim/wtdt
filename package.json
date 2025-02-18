@@ -40,8 +40,7 @@
     "secrets": [
       "SUPABASE_URL",
       "SUPABASE_ANON_KEY",
-      "SITE_URL",
-      "NODE_ENV"
+      "SITE_URL"
     ]
   }
 }
