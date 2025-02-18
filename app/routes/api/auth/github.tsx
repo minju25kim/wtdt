@@ -5,22 +5,15 @@ export const APIRoute = createAPIFileRoute('/api/auth/github')({
   GET: async ({ request }) => {
     const supabase = await getSupabaseServerClient()
 
-    let baseUrl = ''
+    console.log('1. SITE URL',process.env.SITE_URL)
+    console.log('2. Request',request.headers.get('host'))
 
-    if (process.env.NODE_ENV === 'production') {
-      baseUrl = process.env.SITE_URL || ''
-    }
-    if (process.env.NODE_ENV === 'development') {
-      baseUrl = 'http://localhost:3000'
-    }
+    console.log('3. NODE_ENV',process.env.NODE_ENV)
 
-    console.log(baseUrl)
     const { data } = await supabase.auth.signInWithOAuth({
       provider: 'github',
-      options: {
-        redirectTo: `${baseUrl}/dashboard`,
-      },
     })
+
     return new Response(null, {
       status: 302,
       headers: {
