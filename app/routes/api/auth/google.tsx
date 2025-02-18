@@ -4,20 +4,15 @@ import { getSupabaseServerClient } from '@/utils/supabase'
 export const APIRoute = createAPIFileRoute('/api/auth/google')({
   GET: async ({ request }) => {
     const supabase = await getSupabaseServerClient()
-    let baseUrl = ''
+    
+    console.log('request',request.headers.get('host'))
 
-    if (process.env.NODE_ENV === 'production') {
-      baseUrl = new URL(request.url).origin
-    } else {
-      baseUrl = 'http://localhost:3000'
-    }
-
-    console.log(baseUrl)
+    console.log(process.env.NODE_ENV)
 
     const { data } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${baseUrl}/dashboard`,
+        redirectTo: `${process.env.SITE_URL}/dashboard`,
       },
     })
     return new Response(null, {
