@@ -30,8 +30,10 @@ COPY . .
 # Build application
 RUN --mount=type=secret,id=SUPABASE_URL \
     --mount=type=secret,id=SUPABASE_ANON_KEY \
+    --mount=type=secret,id=SITE_URL \
     SUPABASE_URL="$(cat /run/secrets/SUPABASE_URL)" \
     SUPABASE_ANON_KEY="$(cat /run/secrets/SUPABASE_ANON_KEY)" \
+    SITE_URL="$(cat /run/secrets/SITE_URL)" \
     bun --bun run build
 
 # Remove development dependencies
