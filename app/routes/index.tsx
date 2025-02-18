@@ -17,15 +17,21 @@ function Home() {
                     <img src="/og-image.webp" alt="WTDT" width={1200} height={630} />
                 </div>
                 <div className="flex flex-col gap-2">
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={() => {
+                        console.log('Github Sign in')
+                    }}>
                         <Github />
                         Github Sign in
                     </Button>
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={() => {
+                        console.log('Twitter Sign in')
+                    }}>
                         <Twitter />
                         Twitter Sign in
                     </Button>
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={() => {
+                        console.log('Google Sign in')
+                    }}>
                         <Google />
                         Google Sign in
                     </Button>
