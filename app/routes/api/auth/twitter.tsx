@@ -4,9 +4,7 @@ import { getSupabaseServerClient } from '@/utils/supabase'
 export const APIRoute = createAPIFileRoute('/api/auth/twitter')({
   GET: async () => {
     const supabase = await getSupabaseServerClient()
-    const baseUrl = process.env.NODE_ENV === 'production'
-      ? process.env.SITE_URL
-      : 'http://localhost:3000'
+    const baseUrl = process.env.SITE_URL || 'http://localhost:3000'
 
     const { data } = await supabase.auth.signInWithOAuth({
       provider: 'twitter',
