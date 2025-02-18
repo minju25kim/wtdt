@@ -5,22 +5,20 @@ export const APIRoute = createAPIFileRoute('/api/auth/twitter')({
   GET: async ({ request }) => {
     const supabase = await getSupabaseServerClient()
    
-    let baseUrl = ''
 
-    if (process.env.NODE_ENV === 'production') {
-      baseUrl = process.env.SITE_URL || ''
-    }
-    if (process.env.NODE_ENV === 'development') {
-      baseUrl = 'http://localhost:3000'
-    }
+    console.log('1. SITE URL',process.env.SITE_URL)
 
-    console.log(baseUrl)
+    console.log('2. Request',request.headers.get('host'))
+
+    console.log('3. NODE_ENV',process.env.NODE_ENV)
+
     const { data } = await supabase.auth.signInWithOAuth({
       provider: 'twitter',
       options: {
-        redirectTo: `${baseUrl}/dashboard`,
+        redirectTo: `${process.env.SITE_URL}/dashboard`,
       },
     })
+
     return new Response(null, {
       status: 302,
       headers: {
