@@ -1,9 +1,21 @@
 // app/routes/__root.tsx
 import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { Meta, Scripts } from '@tanstack/start'
+import { createServerFn, Meta, Scripts } from '@tanstack/start'
 import type { ReactNode } from 'react'
 
 import appCss from "@/styles/app.css?url"
+import { getSupabaseServerClient } from '@/utils/supabase'
+
+const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
+    const supabase = await getSupabaseServerClient()
+    const { data, error: _error } = await supabase.auth.getUser()
+
+    if (!data.user?.email) {
+        return null
+    }
+
+    return { id: data.user.id }
+})
 
 export const Route = createRootRoute({
     head: () => ({
@@ -81,6 +93,13 @@ export const Route = createRootRoute({
         ],
     }),
     component: RootComponent,
+    beforeLoad: async () => {
+        const user = await fetchUser()
+
+        return {
+            user,
+        }
+    },
 })
 
 function RootComponent() {

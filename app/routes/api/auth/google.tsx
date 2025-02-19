@@ -2,25 +2,38 @@ import { createAPIFileRoute } from '@tanstack/start/api'
 import { getSupabaseServerClient } from '@/utils/supabase'
 
 export const APIRoute = createAPIFileRoute('/api/auth/google')({
-  GET: async ({ request }) => {
+  GET: async () => {
     const supabase = await getSupabaseServerClient()
 
-    console.log('1. NODE_ENV', process.env.NODE_ENV)
-
-    console.log('2. SITE URL', process.env.SITE_URL)
-
-    console.log('3. redirectTo', new URL('/dashboard', process.env.SITE_URL).toString())
-    
-    const { data } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: new URL('/dashboard', process.env.SITE_URL).toString(),
+        redirectTo: `${process.env.SITE_URL}/api/auth/callback`,
       },
     })
+
+    console.log('__api/auth/github__\n', data?.url)
+
+    if (error) {
+      console.error('GitHub OAuth error:', error)
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 400,
+      })
+    }
+
+    if (!data.url) {
+      return new Response(
+        JSON.stringify({ error: 'No redirect URL provided' }),
+        {
+          status: 400,
+        },
+      )
+    }
+
     return new Response(null, {
       status: 302,
       headers: {
-        Location: data.url || '/',
+        Location: data.url,
       },
     })
   },

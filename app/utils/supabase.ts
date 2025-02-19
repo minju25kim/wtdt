@@ -1,5 +1,6 @@
 import { parseCookies, setCookie } from '@tanstack/start/server'
 import { createServerClient } from '@supabase/ssr'
+import { createServerFn } from '@tanstack/start'
 
 export async function getSupabaseServerClient() {
   return createServerClient(
