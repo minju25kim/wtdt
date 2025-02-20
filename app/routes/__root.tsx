@@ -4,7 +4,7 @@ import { createServerFn, Meta, Scripts } from '@tanstack/start'
 import type { ReactNode } from 'react'
 
 import appCss from "@/styles/app.css?url"
-import { getSupabaseServerClient } from '@/utils/supabase'
+import { getSupabaseServerClient } from '@/lib/supabase'
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
     const supabase = await getSupabaseServerClient()
