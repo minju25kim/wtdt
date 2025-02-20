@@ -22,7 +22,7 @@ jobs:
       - name: Remove node_modules and package-lock.json
         run: |
           rm -rf node_modules
-          rm bun.lockb
+          rm bun.lock
 
       - name: Install dependencies
         run: bun install
