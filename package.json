@@ -45,5 +45,8 @@
       "SUPABASE_ANON_KEY",
       "SITE_URL"
     ]
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.34.8"
   }
 }
