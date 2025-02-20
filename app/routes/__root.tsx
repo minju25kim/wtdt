@@ -1,10 +1,13 @@
 // app/routes/__root.tsx
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { createServerFn, Meta, Scripts } from '@tanstack/start'
+import { HeadContent, Scripts, Outlet, createRootRoute } from '@tanstack/react-router'
+import { createServerFn } from '@tanstack/start'
 import type { ReactNode } from 'react'
-
-import appCss from "@/styles/app.css?url"
-import { getSupabaseServerClient } from '@/utils/supabase'
+import { useEffect } from 'react'
+import { getSupabaseServerClient } from '@/lib/supabase'
+import { Footer } from '@/components/appComponents/Footer'
+import { headObject } from '@/lib/headObject'
+import { NavBar } from '@/components/appComponents/NavBar'
+import { useUserStore } from '@/store/storeUser'
 
 const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
     const supabase = await getSupabaseServerClient()
@@ -14,109 +17,40 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
         return null
     }
 
-    return { id: data.user.id }
+    return {
+        id: data.user.id,
+        email: data.user.email,
+        name: data.user.user_metadata.name,
+        avatar: data.user.user_metadata.avatar_url,
+    }
 })
 
+
 export const Route = createRootRoute({
-    head: () => ({
-        meta: [
-            {
-                charSet: 'utf-8',
-            },
-            {
-                name: 'viewport',
-                content: 'width=device-width, initial-scale=1',
-            },
-            {
-                title: 'WTDT',
-                description: 'What to do today?',
-            },
-            {
-                property: 'og:title',
-                content: 'WTDT',
-            },
-            {
-                property: 'og:description',
-                content: 'What to do today?',
-            },
-            {
-                property: 'og:type',
-                content: 'website',
-            },
-            {
-                property: 'og:image',
-                content: '/og-image.webp',
-            },
-            {
-                name: 'twitter:card',
-                content: 'summary_large_image',
-            },
-            {
-                name: 'twitter:title',
-                content: 'WTDT',
-            },
-            {
-                name: 'twitter:description',
-                content: 'What to do today?',
-            },
-            {
-                name: 'twitter:image',
-                content: '/og-image.webp',
-            },
-        ],
-        links: [
-            {
-                rel: "stylesheet",
-                href: appCss,
-            },
-            {
-                rel: 'manifest',
-                href: '/site.webmanifest',
-            },
-            {
-                rel: 'icon',
-                type: 'image/png',
-                sizes: '32x32',
-                href: '/favicon-32x32.png',
-            },
-            {
-                rel: 'icon',
-                type: 'image/png',
-                sizes: '16x16',
-                href: '/favicon-16x16.png',
-            },
-            {
-                rel: 'apple-touch-icon',
-                sizes: '180x180',
-                href: '/apple-touch-icon.png',
-            },
-        ],
-    }),
     component: RootComponent,
+    head: () => (headObject),
     beforeLoad: async () => {
         const user = await fetchUser()
-
-        return {
-            user,
-        }
+        return { user }
     },
 })
 
 function RootComponent() {
+    const { user } = Route.useRouteContext()
+    const { setUser } = useUserStore()
+
+    useEffect(() => {
+        if (user) {
+            setUser(user)
+        }
+    }, [user])
+
     return (
         <RootDocument>
-            <div className='max-w-3xl mx-auto h-[100dvh] grid grid-rows-[1fr_auto] justify-center'>
+            <div className='mx-auto h-[100dvh] grid grid-rows-[auto_1fr_auto] border-1'>
+                <NavBar />
                 <Outlet />
-                <footer className="text-xs text-foreground/50 flex justify-center flex-row gap-2 pb-1">
-                    <span>
-                        &copy; {new Date().getFullYear()} WTDT
-                    </span>
-                    <span>
-                        <a href="mailto:hello.wtdt@gmail.com">
-                            hello.wtdt@gmail.com
-                        </a>
-                    </span>
-                </footer>
+                <Footer />
             </div>
         </RootDocument>
     )
@@ -126,7 +60,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     return (
         <html>
             <head>
-                <Meta />
+                <HeadContent />
             </head>
             <body>
                 {children}

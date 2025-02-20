@@ -1,5 +1,5 @@
 import { createAPIFileRoute } from '@tanstack/start/api'
-import { getSupabaseServerClient } from '@/utils/supabase'
+import { getSupabaseServerClient } from '@/lib/supabase'
 
 export const APIRoute = createAPIFileRoute('/api/auth/twitter')({
   GET: async () => {
@@ -12,10 +12,10 @@ export const APIRoute = createAPIFileRoute('/api/auth/twitter')({
       },
     })
 
-    console.log('__api/auth/github__\n', data?.url)
+    console.log('__api/auth/twitter__\n', data?.url)
 
     if (error) {
-      console.error('GitHub OAuth error:', error)
+      console.error('Twitter OAuth error:', error)
       return new Response(JSON.stringify({ error: error.message }), {
         status: 400,
       })

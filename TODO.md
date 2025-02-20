@@ -1,1 +1,2 @@
-- fix open graph for twitter
+- fix open graph for twitter image size
+- join waitlist for / route

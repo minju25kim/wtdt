@@ -1,5 +1,5 @@
 import { createAPIFileRoute } from '@tanstack/start/api'
-import { getSupabaseServerClient } from '@/utils/supabase'
+import { getSupabaseServerClient } from '@/lib/supabase'
 
 export const APIRoute = createAPIFileRoute('/api/auth/google')({
   GET: async () => {
@@ -12,7 +12,7 @@ export const APIRoute = createAPIFileRoute('/api/auth/google')({
       },
     })
 
-    console.log('__api/auth/github__\n', data?.url)
+    console.log('__api/auth/google__\n', data?.url)
 
     if (error) {
       console.error('GitHub OAuth error:', error)
