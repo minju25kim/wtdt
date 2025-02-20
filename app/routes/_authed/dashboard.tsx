@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { getSupabaseServerClient } from '@/utils/supabase'
+import { getSupabaseServerClient } from '@/lib/supabase'
 import { createServerFn } from '@tanstack/start'
 import { Button } from '@/components/ui/button'
 

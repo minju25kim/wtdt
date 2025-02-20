@@ -1,5 +1,5 @@
 import { createAPIFileRoute } from '@tanstack/start/api'
-import { getSupabaseServerClient } from '@/utils/supabase'
+import { getSupabaseServerClient } from '@/lib/supabase'
 
 export const APIRoute = createAPIFileRoute('/api/auth/google')({
   GET: async () => {
