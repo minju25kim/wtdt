@@ -1,6 +1,6 @@
 export function Footer() {
     return (
-        <footer className="text-xs text-foreground/50 flex justify-center flex-row gap-2 pb-1">
+        <footer className="text-xs text-foreground/50 flex justify-center flex-row gap-2 p-2">
             <span>
                 &copy; {new Date().getFullYear()} WTDT
             </span>

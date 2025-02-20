@@ -52,7 +52,7 @@ function RootComponent() {
         <RootDocument>
             <div className='h-[100dvh] grid grid-rows-[auto_1fr_auto]'>
                 <NavBar />
-                <main className='py-2 px-4'>
+                <main className='px-4'>
                     <Outlet />
                 </main>
                 <Footer />

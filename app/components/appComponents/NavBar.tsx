@@ -7,7 +7,7 @@ export function NavBar() {
   const user = useUserStore(state => state.user);
 
   return (
-    <header className="w-full py-2 px-4 border-b">
+    <header className="w-full py-2 px-4">
       <div className="flex justify-between items-center">
         <Link to="/" className="hover:opacity-80 transition-opacity">
           <span className="font-bold text-xl">WTDT</span>
