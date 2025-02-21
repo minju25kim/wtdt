@@ -1,3 +1,3 @@
-export const handleAuth = (provider: 'github' | 'twitter' | 'google' | 'signout') => {
+export const handleAuth = (provider: 'signout') => {
     window.location.href = `/api/auth/${provider}`
 }

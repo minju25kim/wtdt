@@ -4,11 +4,11 @@ import type { ReactNode } from 'react'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { headObject } from '@/lib/headObject'
 import { Footer } from '@/components/appComponents/Footer'
-import { NavBar } from '@/components/appComponents/NavBar'
 import { useUserStore } from '@/store/userStore'
+import { NavBar } from '@/components/appComponents/NavBar'
 import { useEffect } from 'react'
 
-const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
+export const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
     const supabase = await getSupabaseServerClient()
     const { data, error: _error } = await supabase.auth.getUser()
 
@@ -46,8 +46,8 @@ function RootComponent() {
                 avatar_url: user.avatar_url ?? ''
             })
         }
-    }, [user])
-
+    }, [user, setUser])
+    
     return (
         <RootDocument>
             <div className='h-[100dvh] grid grid-rows-[auto_1fr_auto]'>
