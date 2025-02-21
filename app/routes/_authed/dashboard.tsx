@@ -46,7 +46,43 @@ const getProjects = createServerFn({ method: 'GET' })
     })
 
 const handleCreateProject = createServerFn({ method: 'POST' }).handler(async () => {
-    console.log('handleCreateProject')
+    const supabase = await getSupabaseServerClient();
+
+    // Get authenticated user
+    const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
+
+    if (authError) {
+        console.error('Auth error:', authError);
+        throw authError;
+    }
+
+    if (!authUser) {
+        console.warn('No authenticated user found');
+        return [];
+    }
+
+    // Fetch projects for the authenticated user
+    const { data, error } = await supabase
+        .from('projects')
+        .insert({
+            user_id: authUser.id,
+            name: 'New Project',
+        })
+        .select('id')
+
+    if (error) {
+        console.error('Error fetching projects:', error);
+        throw error;
+    }
+
+    if (!data || data.length === 0) {
+        console.log('No projects found for user:', authUser.id);
+        return [];
+    }
+
+    console.log('data', data)
+    return data;
+
 })
 
 function RouteComponent() {
@@ -66,9 +102,10 @@ function RouteComponent() {
                     <div className="flex justify-between">
                         <h2 className="text-lg font-semibold">Project</h2>
                         <Button variant="outline" onClick={() => {
-                            handleCreateProject().then(() => {
-                                router.invalidate()
-                            })
+                            handleCreateProject()
+                                .then(() => {
+                                    router.invalidate()
+                                })
                         }}>Create a new project</Button>
                     </div>
                     <div>
