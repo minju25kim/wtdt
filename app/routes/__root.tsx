@@ -1,5 +1,5 @@
-import { Outlet, createRootRoute, HeadContent, Scripts } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/start'
+import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { createServerFn, Scripts, Meta } from '@tanstack/start'
 import type { ReactNode } from 'react'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import { headObject } from '@/lib/headObject'
@@ -25,8 +25,8 @@ const fetchUser = createServerFn({ method: 'GET' }).handler(async () => {
 })
 
 export const Route = createRootRoute({
-    head: () => (headObject),
     component: RootComponent,
+    head: () => (headObject),
     beforeLoad: async () => {
         const user = await fetchUser()
         return { user }
@@ -65,7 +65,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     return (
         <html>
             <head>
-                <HeadContent />
+                <Meta />
             </head>
             <body>
                 {children}

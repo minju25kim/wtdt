@@ -3,7 +3,7 @@ import { Github } from '@/components/icons'
 import { Twitter } from '@/components/icons/Twitter'
 import { Button } from '@/components/ui/button'
 import { getSupabaseServerClient } from '@/lib/supabase'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 import { handleAuth } from '@/lib/auth'
 // import { WaitlistForm } from '@/components/appComponents/WaitlistForm'
@@ -33,6 +33,7 @@ export const joinWaitlist = createServerFn({ method: 'POST' })
     })
 
 function Home() {
+    const router = useRouter()
     const { user } = Route.useRouteContext()
 
     return (
