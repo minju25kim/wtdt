@@ -30,7 +30,7 @@ export function WaitlistForm() {
     }
 
     return (
-        <div className="max-w-md w-full px-4">
+        <div className="max-w-md w-full px-4 mx-auto">
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
                 <h2 className="text-lg font-semibold text-center">Join the Waitlist</h2>
                 <div className="flex gap-2">
