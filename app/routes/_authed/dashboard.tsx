@@ -2,6 +2,7 @@ import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { createServerFn } from '@tanstack/start'
 import { getSupabaseServerClient } from '@/lib/supabase'
+import { Chat } from '@/components/appComponents/Chat'
 
 export const Route = createFileRoute('/_authed/dashboard')({
     component: RouteComponent,
@@ -91,9 +92,7 @@ function RouteComponent() {
 
     return (
         <div className="grid grid-cols-2 gap-2 h-full">
-            <div className="border p-2">
-                <h2 className="text-lg font-semibold mb-4">Chat</h2>
-            </div>
+            <Chat />
             <div className="h-full grid grid-rows-[auto_600px] gap-2">
                 <div className="border">
                     <h2 className="text-lg font-semibold mb-4">user</h2>

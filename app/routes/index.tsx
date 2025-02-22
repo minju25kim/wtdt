@@ -1,15 +1,13 @@
-import { Google } from '@/components/icons'
-import { Github } from '@/components/icons'
-import { Twitter } from '@/components/icons/Twitter'
-import { Button } from '@/components/ui/button'
+// import { Google } from '@/components/icons'
+// import { Github } from '@/components/icons'
+// import { Twitter } from '@/components/icons/Twitter'
+// import { Button } from '@/components/ui/button'
 import { getSupabaseServerClient } from '@/lib/supabase'
 import type { Provider } from '@supabase/supabase-js'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/start'
 // import { handleAuth } from '@/lib/auth'
-// import { WaitlistForm } from '@/components/appComponents/WaitlistForm'
-import { useUserStore } from '@/store/userStore'
-import { fetchUser } from './__root'
+import { WaitlistForm } from '@/components/appComponents/WaitlistForm'
 
 export const Route = createFileRoute('/')({
     component: Home,
@@ -77,10 +75,10 @@ function Home() {
             </div>
 
             {/* waitlist */}
-            {/* <WaitlistForm /> */}
+            <WaitlistForm />
 
             {/* sign in buttons */}
-            <div>
+            {/* <div>
                 <div className='flex flex-col justify-start items-center gap-2'>
                     <Button variant="outline" onClick={async () => {
                         await handleAuth({ data: { provider: 'github' } }).then((result) => {
@@ -114,7 +112,7 @@ function Home() {
                     </Button>
                 </div>
 
-            </div>
+            </div> */}
         </div>
     )
 }
