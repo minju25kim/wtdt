@@ -19,12 +19,14 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^1.1.13",
     "@radix-ui/react-slot": "^1.1.2",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.48.1",
     "@tailwindcss/postcss": "^4.0.5",
     "@tanstack/react-router": "^1.102.1",
     "@tanstack/start": "^1.102.1",
+    "ai": "^4.1.45",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",
@@ -34,7 +36,8 @@
     "tailwind-merge": "^3.0.1",
     "tailwindcss": "^4.0.5",
     "tailwindcss-animate": "^1.0.7",
-    "vinxi": "^0.5.3"
+    "vinxi": "^0.5.3",
+    "zustand": "^5.0.3"
   },
   "dockerfile": {
     "secrets": [
@@ -42,5 +45,6 @@
       "SUPABASE_ANON_KEY",
       "SITE_URL"
     ]
-  }
+  },
+  "packageManager": "npm@10.9.2+sha512.8ab88f10f224a0c614cb717a7f7c30499014f77134120e9c1f0211ea3cf3397592cbe483feb38e0c4b3be1c54e347292c76a1b5edb94a3289d5448484ab8ac81"
 }

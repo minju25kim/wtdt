@@ -1,1 +1,0 @@
-- fix open graph for twitter

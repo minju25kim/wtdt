@@ -3,34 +3,57 @@ import { getSupabaseServerClient } from '@/lib/supabase'
 
 export const APIRoute = createAPIFileRoute('/api/auth/callback')({
     GET: async ({ request }) => {
-        const supabase = await getSupabaseServerClient()
-        // Get the code from the URL using request.url
-        const url = new URL(request.url)
-        const code = url.searchParams.get('code')
-        
-        if (!code) {
-            return Response.redirect('/?error=No+code+provided', 302)
-        }
-        
-        const { data: { session }, error } = await supabase.auth.exchangeCodeForSession(code)
-        console.log('__api/auth/callback__\n')
-
-        if (error) {
-            console.error('Auth error:', error)
-            return Response.redirect(`/?error=${encodeURIComponent(error.message)}`, 302)
-        }
-
-        if (!session) {
-            console.error('No session created')
-            return Response.redirect('/?error=No+session+created', 302)
-        }
-
-        return new Response(null, {
-            status: 302,
-            headers: {
-                'Location': '/dashboard'
+        try {
+            const supabase = await getSupabaseServerClient()
+            const url = new URL(request.url)
+            const code = url.searchParams.get('code')
+            
+            if (!code) {
+                return new Response(null, {
+                    status: 302,
+                    headers: {
+                        'Location': '/?error=No+code+provided'
+                    }
+                })
             }
-        })
+            
+            const { data: { session }, error } = await supabase.auth.exchangeCodeForSession(code)
+
+            if (error) {
+                console.error('Auth error:', error)
+                return new Response(null, {
+                    status: 302,
+                    headers: {
+                        'Location': `/?error=${encodeURIComponent(error.message)}`
+                    }
+                })
+            }
+
+            if (!session) {
+                console.error('No session created')
+                return new Response(null, {
+                    status: 302,
+                    headers: {
+                        'Location': '/?error=No+session+created'
+                    }
+                })
+            }
+            
+            return new Response(null, {
+                status: 302,
+                headers: {
+                    'Location': '/dashboard'
+                }
+            })
+        } catch (error) {
+            console.error('Callback error:', error)
+            return new Response(null, {
+                status: 302,
+                headers: {
+                    'Location': '/?error=Internal+server+error'
+                }
+            })
+        }
     }
 })
 
